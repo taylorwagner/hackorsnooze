@@ -35,7 +35,7 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
-/** Show submit your own story form on "submit" */
+/** Show the submit your own story form when clicking on "submit" link in the navbar */
 
 function navSubmitClick(e) {
   console.debug("navSubmitClick", e);
