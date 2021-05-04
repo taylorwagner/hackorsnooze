@@ -51,7 +51,7 @@ $navSubmit.on("click", navSubmitClick);
 function navFavoritesClick(e) {
   console.debug("navFavoritesclick", e);
   hidePageComponents();
-  favoritesListOnPage.show();
+  favoriteListOnPage();
 }
 
 $body.on("click", "#nav-favorites", navFavoritesClick);
