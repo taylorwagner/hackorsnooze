@@ -40,7 +40,6 @@ function updateNavOnLogin() {
 function navSubmitClick(e) {
   console.debug("navSubmitClick", e);
   hidePageComponents();
-  $allStoriesList.show();
   $submitStoryForm.show();
 }
 
