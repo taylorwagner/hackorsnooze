@@ -88,6 +88,27 @@ class StoryList {
 
     return created;
   }
+
+  /** Delete story from the API and remove from the story list
+   * user --> the current User instance
+   * storyId --> the ID of the story you want to remove
+   */
+
+  async removeStory(user, storyID) {
+    const token = user.loginToken;
+    await axios ({
+      url: `${BASE_URL}/stories/${storyId}`,
+      method: "DELETE",
+      data: { token: user.loginToken }
+    });
+
+    //filter out the story whose ID we are removing
+    this.stories = this.stories.filter(story => story.storyId !== storyId);
+
+    //do the same thing for the user's list of stories and the user's favorites
+    user.ownStories = user.ownStories.filter(s => s.storyId !== storyId);
+    user.favorites = user.favorites.filter(s => s.storyId !== storyId);
+  }
 }
 
 
@@ -97,7 +118,7 @@ class StoryList {
 
 class User {
   /** Make user instance from obj of user data and a token:
-   *   - {username, name, createdAt, favorites[], ownStories[]}
+   *   - {username, name, createdAt, favorites[], ownStories[]} //not sure if ownStories should be userStories based on my variable
    *   - token
    */
 

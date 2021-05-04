@@ -6,8 +6,8 @@ const $body = $("body");
 
 const $storiesLoadingMsg = $("#stories-loading-msg");
 const $allStoriesList = $("#all-stories-list");
-const $favorites = $("#favorites");
-const $userStories = $("#my-stories");
+const $favoritesL = $("#favorites");
+const $ownStories = $("#my-stories");
 
 //selector to find all three story lists
 const $storiesList = $(".stories-list")
