@@ -94,7 +94,7 @@ class StoryList {
    * storyId --> the ID of the story you want to remove
    */
 
-  async removeStory(user, storyID) {
+  async removeStory(user, storyId) {
     const token = user.loginToken;
     await axios ({
       url: `${BASE_URL}/stories/${storyId}`,
