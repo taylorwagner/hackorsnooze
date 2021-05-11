@@ -53,7 +53,8 @@ function getDeleteBtnHTML() {
 
 /** Make favorite/not-favorite star for story */
 function getStarHTML(isFavorite) {
-  // const isFavorite = user.isFavorite(story); NOT NEEDED WITH NEW CLASS METHOD FROM MODELS.JS
+  // const isFavorite = user.isFavorite(story); 
+  // NOT NEEDED WITH NEW CLASS METHOD FROM MODELS.JS
   const starType = isFavorite ? "fas" : "far";
 
   return `
@@ -71,7 +72,8 @@ function putStoriesOnPage() {
 
   // loop through all of our stories and generate HTML for them
   for (let story of storyList.stories) {
-    const $story = generateStoryMarkup(story);
+    let isFav = currentUser.isFavorite(story);
+    const $story = generateStoryMarkup(story, false, isFav);
     $allStoriesList.append($story);
   }
 
