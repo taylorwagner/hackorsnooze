@@ -19,7 +19,9 @@ async function getAndShowStoriesOnStart() {
  * Returns the markup for the story.
  */
 
-function generateStoryMarkup(story, showDeleteBtn = false) {
+let story = {};
+
+function generateStoryMarkup(story, showDeleteBtn = false, isFavorite = false) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
@@ -30,7 +32,7 @@ function generateStoryMarkup(story, showDeleteBtn = false) {
   return $(`
       <li id="${story.storyId}">
         ${showDeleteBtn ? getDeleteBtnHTML() : ""}
-        ${showStar ? getStarHTML(story, currentUser) : ""}
+        ${showStar ? getStarHTML(isFavorite) : ""}
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -50,8 +52,8 @@ function getDeleteBtnHTML() {
 }
 
 /** Make favorite/not-favorite star for story */
-function getStarHTML(story, user) {
-  const isFavorite = user.isFavorite(story);
+function getStarHTML(isFavorite) {
+  // const isFavorite = user.isFavorite(story); NOT NEEDED WITH NEW CLASS METHOD FROM MODELS.JS
   const starType = isFavorite ? "fas" : "far";
 
   return `
@@ -131,7 +133,8 @@ function putUserStoriesOnPage() {
   } else {
     //loop through all of users stories and generate HTML
     for (let story of currentUser.ownStories) {
-      let $story = generateStoryMarkup(story, true);
+      let isFav = currentUser.isFavorite(story);
+      let $story = generateStoryMarkup(story, true, isFav);
       $ownStories.append($story);
     }
   }
@@ -154,7 +157,8 @@ function favoriteListOnPage() {
   } else {
     //loop through all of the user's favorite and generate HTML
     for (let story of currentUser.favorites) {
-      const $story = generateStoryMarkup(story);
+      let isOwnStory = currentUser.isOwnStory(story);
+      const $story = generateStoryMarkup(story, isOwnStory, true);
       $favoritesL.append($story);
     }
   }

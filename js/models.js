@@ -230,15 +230,15 @@ class User {
   /** Include a story to a list of user's favorites and update the API --> story: a Story instance to add to the favorites list*/
 
   async favorite(story) {
-    this.favorites.push(story);
     await this._addOrDeleteFavorite("add", story);
+    this.favorites.push(story);
   }
 
   /** Delete a story from the list of user's favorites and update the API --> story: a Story instance to delete from the favorites list */
 
   async deleteFavorite(story) {
-    this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
     await this._addOrDeleteFavorite("delete", story);
+    this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
   }
 
   /** Update the API with favorite/not-favorite.
@@ -259,5 +259,9 @@ class User {
   /** Return true or false if given Story instance is a favorite of the logged in user */
   isFavorite(story) {
     return this.favorites.some(s => (s.storyId === story.storyId));
+  }
+
+  isOwnStory(story) {
+    return this.ownStories.some(s => (s.storyId === story.storyId));
   }
 }
