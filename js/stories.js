@@ -72,7 +72,7 @@ function putStoriesOnPage() {
 
   // loop through all of our stories and generate HTML for them
   for (let story of storyList.stories) {
-    let isFav = currentUser.isFavorite(story);
+    let isFav = currentUser && currentUser.isFavorite(story);
     const $story = generateStoryMarkup(story, false, isFav);
     $allStoriesList.append($story);
   }
